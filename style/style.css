@@ -159,6 +159,12 @@ body {
   margin-bottom: 30px; /* Отступ снизу */
   font-weight: 300; /* Легкое начертание шрифта */
 }
+.experience-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ gap: 20px;
+}
+
 .experience-card {
   background: white; /* Белый фон карточки */
   padding: 25px; /* Внутренние отступы */
@@ -385,4 +391,22 @@ main.content {
     margin-top: 20px;
     font-weight: 600;
     transition: all 0.3s ease;
+}
+@media (max-width: 768px) {
+ .nav-list {
+ flex-direction: column;
+ gap: 10px;
+ }
+
+ .skills-grid {
+ grid-template-columns: 1fr;
+ }
+
+ .experience-grid {
+ grid-template-columns: 1fr;
+ }
+
+ main.content {
+ padding: 20px;
+ }
 }
