@@ -420,6 +420,7 @@ body {
     font-weight: 600;
     transition: all 0.3s ease;
   }
+  
   @media (max-width: 768px) {
     .nav-list {
       flex-direction: column;
@@ -439,6 +440,7 @@ body {
     }
   }
 }
+
 @media (max-width: 768px) {
   .skill-tag.full-bleed {
     width: 100vw;
@@ -447,4 +449,68 @@ body {
     padding-left: 16px;
     padding-right: 16px;
   }
+}
+.dark-theme {
+  --color-main: #ecf0f1;
+  --color-light: #2c3e50;
+  --color-dark: #1a1a1a;
+  --color-white: #1f1f1f;
+  background: linear-gradient(135deg, #1e1e2f 0%, #2a2a3b 100%);
+  color: #f1f1f1;
+}
+
+.dark-theme .page-container {
+  background: #222;
+  color: #f1f1f1;
+}
+
+.dark-theme .header,
+.dark-theme .footer {
+  background: linear-gradient(135deg, #1a1a2a 0%, #2a2a3b 100%);
+  color: #f1f1f1;
+}
+
+.dark-theme .nav {
+  background: #111;
+}
+
+.dark-theme .nav-link {
+  color: #f1f1f1;
+}
+
+.dark-theme .nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .about-me,
+.dark-theme .contact-info,
+.dark-theme .contact-item,
+.dark-theme .news-card,
+.dark-theme .experience-card,
+.dark-theme .product-card {
+  background: #2a2a3b;
+  color: #f1f1f1;
+  border-left-color: #667eea;
+}
+
+.dark-theme .product-button,
+.dark-theme .contact-button {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 10px 14px;
+  font-size: 20px;
+  background: none;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
 }

@@ -139,6 +139,7 @@ display: block;
         <div class="page-container">
             <header class="header">
                 <h1>Контакты</h1>
+                <button id="theme-toggle" class="theme-toggle">🌓</button>
             </header>
 
             <nav class="nav">
@@ -286,5 +287,21 @@ function(event) {
  }
  });
  </script>
+ <script>
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+
+// При загрузке применяем сохранённую тему
+if (localStorage.getItem('theme') === 'dark') {
+  root.classList.add('dark-theme');
+}
+
+// Переключение
+toggle.addEventListener('click', () => {
+  root.classList.toggle('dark-theme');
+  const isDark = root.classList.contains('dark-theme');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+</script>
     </body>
 </html>
