@@ -6,6 +6,23 @@
     <title>Document</title>
     <link rel="stylesheet" href="../style/reset.css">
     <link rel="stylesheet" href="../style/style.css">
+
+    <style>
+      /* Выбранная карточка по клику */
+      .product-card.selected { border: 2px solid #0d6efd; box-shadow: 0 0.75rem 1.5rem rgba(13,110,253,.25); }
+      [data-bs-theme="dark"] .product-card.selected { border-color: #8aa2ff; box-shadow: 0 0.75rem 1.5rem rgba(138,162,255,.3); }
+    </style>
+
+
+<style>
+  /* Выбранная карточка (vanilla) */
+  .product-card { cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,.12); }
+  .product-card--selected, .product-card.selected { border: 2px solid #667eea; box-shadow: 0 12px 24px rgba(102,126,234,.35); }
+  .product-price .price-old { text-decoration: line-through; opacity: .65; margin-right: 8px; }
+  .product-price .price-new { font-weight: 800; }
+</style>
+
 </head>
 <body>
     <div class="page-container">
@@ -33,37 +50,38 @@
                     <p class="section-description">Мы предлагаем широкий ассортимент качественных товаров по доступным ценам</p>
                     
                     
+                    
                     <div class="products-grid">
                         
                         <article class="product-card">
                             <div class="product-image-container">
-                                <img class="product-image" src="../src/75295db199fbcedc3446db335fcdfae7.jpg" alt="Современный ноутбук для работы и игр">
+                                <img class="product-image" src="../src/75295db199fbcedc3446db335fcdfae7.jpg" alt="Ноутбук">
                             </div>
                             <div class="product-info">
                                 <h3 class="product-name">Производительный ноутбук</h3>
-                                <p class="product-description">Мощный ноутбук для работы, учебы и развлечений с современными характеристиками</p>
+                                <p class="product-description">Мощный ноутбук для работы, учебы и развлечений с современными характеристиками.</p>
                                 <p class="product-price">85 990 ₽</p>
                                 <button class="product-button">В корзину</button>
                             </div>
                         </article>
-                        
-                        
-                        <article class="product-card">
+
+                      
+                        <article class="product-card product-card--hover-demo">
                             <div class="product-image-container">
-                                <img class="product-image" src="../src/342993ef5d6ed08891993031c5e3cecc.jpg" alt="Смартфон последней модели">
+                                <img class="product-image" src="../src/342993ef5d6ed08891993031c5e3cecc.jpg" alt="Смартфон">
                             </div>
                             <div class="product-info">
                                 <h3 class="product-name">Флагманский смартфон</h3>
-                                <p class="product-description">Инновационный смартфон с лучшей камерой и производительностью на рынке</p>
+                                <p class="product-description">Инновационный смартфон с лучшей камерой и высокой производительностью.</p>
                                 <p class="product-price">64 990 ₽</p>
                                 <button class="product-button">В корзину</button>
                             </div>
                         </article>
+
                         
-                        
-                        <article class="product-card">
+                        <article class="product-card product-card--selected" aria-selected="true">
                             <div class="product-image-container">
-                                <img class="product-image" src="../src/m1000x1000.jpg" alt="Беспроводные наушники">
+                                <img class="product-image" src="../src/m1000x1000.jpg" alt="Наушники">
                             </div>
                             <div class="product-info">
                                 <h3 class="product-name">Беспроводные наушники</h3>
@@ -72,7 +90,10 @@
                                 <button class="product-button">В корзину</button>
                             </div>
                         </article>
+
+                        
                     </div>
+
                 </section>
             </main>
 
@@ -97,5 +118,56 @@ toggle.addEventListener('click', () => {
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 </script>
+
+    <script>
+      (function () {
+        const grid = document.querySelector('.products-grid');
+        if (!grid) return;
+        grid.addEventListener('click', (e) => {
+          const card = e.target.closest('.product-card');
+          if (!card) return;
+          // Снимаем выделение с остальных
+          grid.querySelectorAll('.product-card.selected').forEach(el => {
+            if (el !== card) el.classList.remove('selected');
+          });
+          // Тогглим активную
+          card.classList.toggle('selected');
+          card.setAttribute('aria-selected', card.classList.contains('selected') ? 'true' : 'false');
+        });
+      })();
+    </script>
+
+
+<script>
+(function(){
+  function parsePrice(text){
+    const digits = text.replace(/[^0-9]/g,'');
+    return digits ? parseInt(digits, 10) : NaN;
+  }
+  function formatPrice(n){
+    if (isNaN(n)) return '';
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0') + ' ₽';
+  }
+  document.querySelectorAll('.product-card').forEach(function(card){
+    // Toggle selected class on click (ignore clicks on buttons/links)
+    card.addEventListener('click', function(e){
+      if (e.target.closest('button,a')) return;
+      card.classList.toggle('product-card--selected');
+      card.classList.toggle('selected');
+    });
+    // Process price
+    const priceEl = card.querySelector('.product-price');
+    if (!priceEl) return;
+    // Avoid double-processing
+    if (priceEl.querySelector('.price-old')) return;
+    const currentText = priceEl.textContent.trim();
+    const current = parsePrice(currentText);
+    if (isNaN(current)) return;
+    const old = Math.round(current * 1.15 / 10) * 10;
+    priceEl.innerHTML = '<span class="price-old">' + formatPrice(old) + '</span><span class="price-new">' + formatPrice(current) + '</span>';
+  });
+})();
+</script>
+
 </body>
 </html>

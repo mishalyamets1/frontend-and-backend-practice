@@ -359,7 +359,6 @@ body {
     margin: 0 0 15px 0;
   }
   .news-text {
-    color: var(--color-dark);
     line-height: 1.7;
     margin: 0;
   }
@@ -410,7 +409,7 @@ body {
   }
   .contact-button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: var( --color-white);
+    color: var( --color-white) !important;
     border: none;
     padding: 15px 40px;
     font-size: 16px;
@@ -486,16 +485,18 @@ body {
 .dark-theme .contact-info,
 .dark-theme .contact-item,
 .dark-theme .news-card,
+.dark-theme .news-text,
 .dark-theme .experience-card,
 .dark-theme .product-card {
   background: #2a2a3b;
-  color: #160101;
+  color: #f1f1f1;
   border-left-color: #667eea;
 }
 
 .dark-theme .product-button,
 .dark-theme .contact-button {
   background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  color: #f1f1f1 !important;
 }
 
 .theme-toggle {
@@ -513,4 +514,38 @@ body {
 
 .theme-toggle:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+
+
+.product-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; border: 1px solid rgba(0,0,0,.05); }
+.product-card:hover, .product-card--hover-demo:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,.12); }
+
+.product-card--selected { border: 2px solid #667eea; box-shadow: 0 12px 24px rgba(102,126,234,.35); }
+.product-card--discount { position: relative; }
+.product-card--discount .product-badge { position: absolute; top: 10px; left: 10px; background: #e74c3c; color: #fff; padding: 6px 10px; border-radius: 8px; font-weight: 700; font-size: 14px; }
+.price-old { text-decoration: line-through; opacity: .65; margin-right: 8px; }
+.price-new { color: #e74c3c; font-weight: 800; }
+
+/* Тёмная тема для карточек (vanilla) */
+.dark-theme .product-card { border-color: rgba(255,255,255,.12); }
+.dark-theme .product-card:hover,
+.dark-theme .product-card--hover-demo:hover { box-shadow: 0 12px 24px rgba(0,0,0,.5); }
+.dark-theme .product-card--selected { border-color: #8aa2ff; box-shadow: 0 12px 24px rgba(138,162,255,.35); }
+.dark-theme .product-card--discount .product-badge { background: #ff6b6b; }
+
+
+/* === Исправление: прижатие футера к низу страницы (без Bootstrap) === */
+html, body {
+  height: 100%;
+}
+
+.page-container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main.content {
+  flex: 1;
 }
